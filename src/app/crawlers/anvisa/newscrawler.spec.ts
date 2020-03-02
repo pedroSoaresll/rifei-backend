@@ -6,7 +6,8 @@ import { Article } from '../../models/Article'
 describe('News Crawler suite tests', () => {
   beforeAll(async () => {
     NewsCrawler.articles = []
-    await mongoose.connect(getMongoURI(), getMongoOptionConnection())
+    await mongoose
+      .connect(getMongoURI(), getMongoOptionConnection())
       .then(() => console.log('mongo connected'))
       .catch(e => console.error('error to connect mongo ', e))
   })
@@ -19,14 +20,14 @@ describe('News Crawler suite tests', () => {
     expect(NewsCrawler).toBeDefined()
   })
 
-  test('should get data from anvisa', async (cb) => {
+  test('should get data from anvisa', async cb => {
     await NewsCrawler.extract()
     expect(typeof NewsCrawler.$).toBe(typeof Function)
     expect(NewsCrawler.$('.listagem').hasClass('listagem')).toBe(true)
     cb()
   })
 
-  test('should receive list of articles', async (cb) => {
+  test('should receive list of articles', async cb => {
     await NewsCrawler.extract()
     await NewsCrawler.transform()
 
@@ -56,7 +57,7 @@ describe('News Crawler suite tests', () => {
     cb()
   })
 
-  test('should be loaded in mongodb', async (cb) => {
+  test('should be loaded in mongodb', async cb => {
     await NewsCrawler.init()
     cb()
   })
