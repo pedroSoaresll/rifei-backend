@@ -1,5 +1,5 @@
 import cheerio from 'cheerio'
-import Article, { ArticleDocument, Article as IArticle } from '../../models/Article'
+import Article, { Article as IArticle } from '../../models/Article'
 import logger from '../../../config/winston'
 import request from 'request'
 
