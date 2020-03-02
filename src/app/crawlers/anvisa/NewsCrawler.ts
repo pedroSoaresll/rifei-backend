@@ -1,10 +1,10 @@
 import cheerio from 'cheerio'
-import Article, { Article as IArticle } from '../../models/Article'
+import Article, { Article as IArticle, Tag } from '../../models/Article'
 import logger from '../../../config/winston'
 import request from 'request'
 
 class NewsCrawler {
-  public $: CheerioStatic
+  public $!: CheerioStatic
   public articles: IArticle[] = []
 
   async extract(): Promise<void> {
@@ -46,18 +46,18 @@ class NewsCrawler {
         const title = $('div.textos p.titulo a')
           .text()
           .trim()
-        const link = $('div.textos p.titulo a').attr('href')
+        const link = $('div.textos p.titulo a').attr('href') ?? ''
         const shortDescription = $('div.textos p.resumo')
           .text()
           .trim()
         // tags
-        const tags = []
+        const tags: Tag[] = []
         $('div.textos div.tags a.tagSearch').each((_, tag) =>
-          tags.push({ name: tag.children[1].data.trim() })
+          tags.push({ name: tag?.children[1]?.data?.trim() ?? '' })
         )
 
         const [day, mounth, year] = date.split('/')
-        const article = {
+        const article: IArticle = {
           createdAt: `${year.trim()}-${mounth.trim()}-${day.trim()} ${time}`,
           link,
           shortDescription,

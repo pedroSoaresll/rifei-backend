@@ -1,7 +1,8 @@
 import User from '../models/User'
+import { Request, Response } from 'express'
 
 class UsersController {
-  async index(req, res): Promise<void> {
+  async index(_: Request, res: Response): Promise<void> {
     const user = await User.find({})
 
     res.json({

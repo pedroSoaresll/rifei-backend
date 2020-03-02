@@ -1,4 +1,4 @@
-import * as MAILGUN from 'mailgun-js'
+import MAILGUN from 'mailgun-js'
 
 interface HeaderMailgun {
   to: string;
