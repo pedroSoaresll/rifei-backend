@@ -1,6 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import mjml2html from 'mjml'
+// @ts-ignore
+import * as mjml2html from 'mjml'
 
 const mjmlPath = '../emails/mjml'
 const htmlPath = '../emails/html'
@@ -14,7 +15,9 @@ const getFilesFromMjmlDirectory = (fileName: string): Buffer =>
 
 const transformBufferToString = (fileBuffer: Buffer): string =>
   Buffer.from(fileBuffer).toString('utf-8')
+
 const renderFileToHtml = (file: string): string => mjml2html(file).html
+
 const saveFileRederized = (html: string, index: number): void =>
   fs.writeFileSync(
     path.resolve(

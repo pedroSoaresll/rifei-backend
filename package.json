@@ -8,7 +8,9 @@
     "dev": "nodemon src/server.ts",
     "build": "sucrase ./src -d ./dist --transforms typescript,imports",
     "test": "jest",
-    "email:template:build": "node ./dist/tools/template-builder.js"
+    "email:compile": "./node_modules/.bin/tsc ./src/tools/template-builder.ts",
+    "email:run-sync": "node ./src/tools/template-builder.js",
+    "email:sync": "yarn email:compile && yarn email:run-sync"
   },
   "dependencies": {
     "axios": "^0.19.2",

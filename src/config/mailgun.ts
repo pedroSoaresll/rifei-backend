@@ -7,11 +7,11 @@ interface HeaderMailgun {
 }
 
 const mailgun = MAILGUN({
-  apiKey: process.env.MAILGUN_API_KEY || 'not-found',
-  domain: process.env.MAILGUN_DOMAIN || 'not-found',
+  apiKey: process.env.MAILGUN_API_KEY ?? 'not-found',
+  domain: process.env.MAILGUN_API_BASE_URL ?? 'not-found',
 })
 
-const textDomain = `Pedro Oliveira <pedro@${process.env.MAILGUN_DOMAIN}>`
+const textDomain = `Pedro Oliveira <pedro@${process.env.MAILGUN_API_BASE_URL}>`
 
 const sendEmail = ({
   to,
