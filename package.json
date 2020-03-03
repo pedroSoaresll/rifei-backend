@@ -1,16 +1,17 @@
 {
   "name": "farma-alerts-backend",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "author": "Pedro Oliveira <pedrodepaivasoaresll@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "nodemon src/server.ts",
-    "build": "sucrase ./src -d ./dist --transforms typescript,imports",
     "test": "jest",
     "email:compile": "./node_modules/.bin/tsc ./src/tools/template-builder.ts",
     "email:run-sync": "node ./src/tools/template-builder.js",
-    "email:sync": "yarn email:compile && yarn email:run-sync"
+    "email:sync": "yarn email:compile && yarn email:run-sync",
+    "start": "concurrently 'yarn compile-tools' 'yarn sync-email-templates' 'yarn dev'",
+    "dev": "node_modules/.bin/nodemon -L --exec ts-node src/server.ts",
+    "build": "node_modules/.bin/tsc"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -42,6 +43,7 @@
     "@types/winston": "^2.4.4",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
+    "concurrently": "^5.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-config-standard": "^14.1.0",
@@ -56,6 +58,7 @@
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1",
     "sucrase": "^3.12.1",
+    "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   }
 }

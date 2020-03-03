@@ -1,4 +1,5 @@
 import MAILGUN from 'mailgun-js'
+import mailgunConfig from '../config/mailgun'
 
 interface HeaderMailgun {
   to: string;
@@ -7,11 +8,11 @@ interface HeaderMailgun {
 }
 
 const mailgun = MAILGUN({
-  apiKey: process.env.MAILGUN_API_KEY ?? 'not-found',
-  domain: process.env.MAILGUN_API_BASE_URL ?? 'not-found',
+  apiKey: mailgunConfig.apiKey ?? 'not-found',
+  domain: mailgunConfig.domain ?? 'not-found',
 })
 
-const textDomain = `Pedro Oliveira <pedro@${process.env.MAILGUN_API_BASE_URL}>`
+const textDomain = `Pedro Oliveira <pedro@${mailgunConfig.domain}>`
 
 const sendEmail = ({
   to,
