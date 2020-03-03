@@ -1,6 +1,6 @@
 import cheerio from 'cheerio'
 import Article, { Article as IArticle, Tag } from '../../models/Article'
-import logger from '../../../config/winston'
+import logger from '../../../libs/winston'
 import request from 'request'
 
 class NewsCrawler {

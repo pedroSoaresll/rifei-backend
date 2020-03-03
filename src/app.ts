@@ -2,7 +2,7 @@ import express from 'express'
 import cors from 'cors'
 import mongoose from 'mongoose'
 
-import logger from './config/winston'
+import logger from './libs/winston'
 import routes from './routes'
 import { getMongoURI, getMongoOptionConnection } from './helper/mongo'
 
