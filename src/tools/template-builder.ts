@@ -3,8 +3,8 @@ import * as path from 'path'
 // @ts-ignore
 import * as mjml2html from 'mjml'
 
-const mjmlPath = '../emails/mjml'
-const htmlPath = '../emails/html'
+const mjmlPath = '../../emails/mjml'
+const htmlPath = '../../emails/html'
 
 const nameTemplateFiles: string[] = fs.readdirSync(
   path.resolve(__dirname, mjmlPath)

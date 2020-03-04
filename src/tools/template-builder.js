@@ -4,8 +4,8 @@ var fs = require("fs");
 var path = require("path");
 // @ts-ignore
 var mjml2html = require("mjml");
-var mjmlPath = '../emails/mjml';
-var htmlPath = '../emails/html';
+var mjmlPath = '../../emails/mjml';
+var htmlPath = '../../emails/html';
 var nameTemplateFiles = fs.readdirSync(path.resolve(__dirname, mjmlPath));
 var getFilesFromMjmlDirectory = function (fileName) {
     return fs.readFileSync(path.resolve(__dirname, mjmlPath + "/" + fileName));

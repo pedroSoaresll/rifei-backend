@@ -4,10 +4,10 @@ import logger from '../libs/winston'
 
 export enum TemplatesName {
   example = 'example',
-  alert = 'alert'
+  alert = 'alert',
 }
 
-const pathTemplates = resolve(__dirname, '../emails/html')
+const pathTemplates = resolve(__dirname, '..', '..', 'emails/html')
 
 const getTemplate = (templateName: string): string | null => {
   try {
@@ -19,6 +19,4 @@ const getTemplate = (templateName: string): string | null => {
   }
 }
 
-export {
-  getTemplate,
-}
+export { getTemplate }

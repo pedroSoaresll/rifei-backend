@@ -3,6 +3,6 @@
     "outDir": "dist",
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts"],
+  "include": ["src/**/*.ts", "src/email/*"],
   "exclude": ["node_modules"]
 }
