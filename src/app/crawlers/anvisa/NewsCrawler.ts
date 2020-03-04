@@ -1,7 +1,15 @@
 import cheerio from 'cheerio'
-import Article, { Article as IArticle, Tag } from '../../models/Article'
+import moment from 'moment'
+import Article, {
+  Article as IArticle,
+  Tag,
+  ArticleDocument,
+} from '../../models/Article'
 import logger from '../../../libs/winston'
 import request from 'request'
+import { render } from '../../../libs/nunjucks'
+import { getTemplate, TemplatesName } from '../../../helper/email'
+import { sendEmail } from '../../../libs/mailgun'
 
 class NewsCrawler {
   public $!: CheerioStatic
@@ -78,20 +86,50 @@ class NewsCrawler {
   }
 
   async load(): Promise<void> {
-    const promiseArticlesToCreate = this.articles.map(async article => {
-      const findArticle = await Article.findOne({
-        title: article.title,
+    async function sendNotification({
+      createdAt,
+      link,
+      shortDescription,
+      tags,
+      title,
+      type,
+    }: ArticleDocument): Promise<void> {
+      logger.info('send email')
+      const html = render(getTemplate(TemplatesName.alert), {
+        createdAt: moment(createdAt).format('DD/MM/YYYY HH:mm'),
+        link,
+        shortDescription,
+        tags: tags.map(tag => tag.name).join(', '),
+        title,
+        type,
       })
 
-      logger.info('article already exists: ' + !!findArticle)
+      await sendEmail({
+        html,
+        subject: 'Anvisa, nova notificação',
+        to: 'pedrodepaivasoaresll@gmail.com',
+      })
+    }
+    const promiseArticlesToCreate = this.articles.map(
+      async (article: IArticle): Promise<ArticleDocument> => {
+        const findArticle = await Article.findOne({
+          title: article.title,
+        })
 
-      if (findArticle) {
-        return null
+        logger.info('article already exists: ' + !!findArticle)
+
+        if (findArticle) {
+          return null
+        }
+
+        logger.info('save new article')
+        const newArticle = await Article.create(article)
+
+        await sendNotification(newArticle)
+
+        return newArticle
       }
-
-      logger.info('create article')
-      return Article.create(article)
-    })
+    )
 
     await Promise.all(promiseArticlesToCreate)
   }

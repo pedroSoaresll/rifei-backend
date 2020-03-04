@@ -1,0 +1,32 @@
+<mjml>
+  <mj-head>
+    <mj-title>Novo alerta</mj-title>
+  </mj-head>
+  <mj-body background-color="#F5F5F5" line-height="1.6">
+    <mj-section>
+      <mj-column>
+        <mj-text font-size="16px" font-weight="500">Oi, detectei um novo alerta, confere aqui:</mj-text>
+      </mj-column>
+    </mj-section>
+
+    <mj-wrapper background-color="#FFF">
+      <mj-section>
+        <mj-column>
+          <mj-text>Data da publicação: {{ createdAt }}</mj-text>
+          <mj-text>Tipo: {{ type }}</mj-text>
+          <mj-text font-weight="bold" font-size="14px">{{ title }}</mj-text>
+          <mj-text>{{ shortDescription }}</mj-text>
+          <mj-text>Tags: {{ tags }}</mj-text>
+        </mj-column>
+      </mj-section>
+
+      <mj-section>
+        <mj-column>
+          <mj-button href="{{ link }}" text-transform="uppercase" background-color="#004A99">
+            Abrir noticia
+          </mj-button>
+        </mj-column>
+      </mj-section>
+    </mj-wrapper>
+  </mj-body>
+</mjml>

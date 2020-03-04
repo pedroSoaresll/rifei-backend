@@ -3,15 +3,23 @@ import UsersController from './app/controllers/UsersController'
 import NewsCrawler from './app/crawlers/anvisa/NewsCrawler'
 import { sendEmail } from './libs/mailgun'
 import { render } from './libs/nunjucks'
-// import exampleEmail from './emails/html/example.html'
+import { TemplatesName, getTemplate } from './helper/email'
 
 const routes = Router()
 
-routes.get('/', (req, res) => {
+routes.get('/', async (req, res) => {
+  const html = render(getTemplate(TemplatesName.example), {
+    username: 'Pedro Oliveira',
+  })
+
+  await sendEmail({
+    html,
+    subject: 'Teste alerta anvisa',
+    to: 'pedrodepaivasoaresll@gmail.com'
+  })
+
   res.json({
-    // message: render(exampleEmail, {
-    //   username: 'Pedro Oliveira',
-    // }),
+    message: html
   })
 })
 routes.get('/users', UsersController.index)
