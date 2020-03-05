@@ -12,7 +12,7 @@ const mailgun = MAILGUN({
   domain: mailgunConfig.domain ?? 'not-found',
 })
 
-const textDomain = `Pedro Oliveira <pedro@${mailgunConfig.domain}>`
+const textDomain = `Pedro Oliveira <pedro.oliveira@${mailgunConfig.domain}>`
 
 const sendEmail = ({
   to,

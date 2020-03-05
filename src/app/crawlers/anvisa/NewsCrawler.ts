@@ -107,7 +107,7 @@ class NewsCrawler {
       await sendEmail({
         html,
         subject: 'Anvisa, nova notificação',
-        to: 'pedrodepaivasoaresll@gmail.com',
+        to: 'carolinebicouv@gmail.com',
       })
     }
     const promiseArticlesToCreate = this.articles.map(
