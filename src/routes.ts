@@ -8,18 +8,8 @@ import { TemplatesName, getTemplate } from './helper/email'
 const routes = Router()
 
 routes.get('/', async (req, res) => {
-  const html = render(getTemplate(TemplatesName.example), {
-    username: 'Pedro Oliveira',
-  })
-
-  await sendEmail({
-    html,
-    subject: 'Teste alerta anvisa',
-    to: 'pedrodepaivasoaresll@gmail.com'
-  })
-
   res.json({
-    message: html
+    ...process.env
   })
 })
 routes.get('/users', UsersController.index)
