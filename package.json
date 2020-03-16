@@ -5,7 +5,7 @@
   "author": "Pedro Oliveira <pedrodepaivasoaresll@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest",
+    "test": "./node_modules/.bin/jest",
     "email:compile": "./node_modules/.bin/tsc ./src/tools/template-builder.ts",
     "email:run-sync": "node ./src/tools/template-builder.js",
     "email:sync": "yarn email:compile && yarn email:run-sync",
