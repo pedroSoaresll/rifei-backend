@@ -28,7 +28,6 @@
     "request": "^2.88.2",
     "winston": "^3.2.1",
     "typescript": "^3.8.3",
-    "jest": "^25.1.0"
   },
   "devDependencies": {
     "@sucrase/jest-plugin": "^2.0.0",
@@ -62,6 +61,7 @@
     "prettier-eslint": "^9.0.1",
     "sucrase": "^3.12.1",
     "ts-node": "^8.6.2",
-    "tslint": "^6.0.0"
+    "tslint": "^6.0.0",
+    "jest": "^25.1.0"
   }
 }
