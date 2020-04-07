@@ -5,6 +5,16 @@ import { schedule } from 'node-cron'
 import app from './app'
 import NewsCrawler from './app/crawlers/anvisa/NewsCrawler'
 
+const initSentry = (): void => {
+  init({
+    dsn: process.env.SENTRY_DSN,
+    release: `farma-alerts@${process.env.npm_package_version}`,
+    integrations: [new RewriteFrames({
+      root: global.__rootdir__
+    })]
+  })
+}
+
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace NodeJS {
@@ -16,16 +26,14 @@ declare global {
 
 global.__rootdir__ = __dirname || process.cwd()
 
+initSentry()
+
 console.log(process.env.npm_package_version)
 
-init({
-  dsn: process.env.SENTRY_DSN,
-  release: `farma-alerts@${process.env.npm_package_version}`,
-  integrations: [new RewriteFrames({
-    root: global.__rootdir__
-  })]
-})
+schedule('* * * * *', () => {
+  initSentry()
 
-schedule('* * * * *', () => NewsCrawler.init())
+  NewsCrawler.init()
+})
 
 app.listen(process.env.NODE_PORT)
