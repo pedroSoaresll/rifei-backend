@@ -6,7 +6,6 @@
   "license": "MIT",
   "scripts": {
     "test": "./node_modules/.bin/jest",
-    "test:ci": "CI=true ./node_modules/.bin/jest",
     "email:compile": "./node_modules/.bin/tsc ./src/tools/template-builder.ts",
     "email:run-sync": "node ./src/tools/template-builder.js",
     "email:sync": "yarn email:compile && yarn email:run-sync",
@@ -61,6 +60,7 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^25.1.0",
+    "mongodb-memory-server": "^6.5.2",
     "nodemon": "^2.0.2",
     "prettier": "^1.19.1",
     "prettier-eslint": "^9.0.1",

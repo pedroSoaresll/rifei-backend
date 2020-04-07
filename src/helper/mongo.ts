@@ -13,13 +13,21 @@ export function getMongoURI(): string {
 }
 
 export function getMongoOptionConnection(): ConnectionOptions {
-  return {
+  let options: ConnectionOptions = {
     useNewUrlParser: true,
     useUnifiedTopology: true,
-    auth: {
-      user,
-      password,
-    },
     authSource: 'admin',
   }
+
+  if (process.env.NODE_ENV !== 'test') {
+    options = {
+      ...options,
+      auth: {
+        user,
+        password
+      }
+    }
+  }
+
+  return options
 }

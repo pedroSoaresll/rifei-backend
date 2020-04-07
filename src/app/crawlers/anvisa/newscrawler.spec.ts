@@ -1,19 +1,26 @@
 import mongoose from 'mongoose'
-import { getMongoURI, getMongoOptionConnection } from '../../../helper/mongo'
+import { MongoMemoryServer } from 'mongodb-memory-server'
+import { getMongoOptionConnection } from '../../../helper/mongo'
 import NewsCrawler from './NewsCrawler'
 import { Article } from '../../models/Article'
 
+console.log(process.env.NODE_ENV)
+
 describe('News Crawler suite tests', () => {
+  let mongod: MongoMemoryServer
+
   beforeAll(async () => {
     NewsCrawler.articles = []
+    mongod = new MongoMemoryServer()
     await mongoose
-      .connect(getMongoURI(), getMongoOptionConnection())
+      .connect(await mongod.getUri(), getMongoOptionConnection())
       .then(() => console.log('mongo connected'))
       .catch(e => console.error('error to connect mongo ', e))
   })
 
-  afterAll(() => {
-    mongoose.connection.close()
+  afterAll(async () => {
+    await mongoose.connection.close()
+    await mongod.stop()
   })
 
   test('should be defined', () => {
