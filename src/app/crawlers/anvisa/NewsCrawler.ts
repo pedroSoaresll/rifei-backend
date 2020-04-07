@@ -1,15 +1,8 @@
 import cheerio from 'cheerio'
-import moment from 'moment'
-import Article, {
-  Article as IArticle,
-  Tag,
-  ArticleDocument,
-} from '../../models/Article'
+import Article, { Article as IArticle, ArticleDocument, Tag } from '../../models/Article'
 import logger from '../../../libs/winston'
 import request from 'request'
-import { render } from '../../../libs/nunjucks'
-import { getTemplate, TemplatesName } from '../../../helper/email'
-import { sendEmail } from '../../../libs/mailgun'
+import { sendEmailAlert } from '../../services/sendEmailAlert'
 
 class NewsCrawler {
   public $!: CheerioStatic
@@ -40,21 +33,23 @@ class NewsCrawler {
     return new Promise(resolve => {
       this.$('.listagem .row-fluid.lista-noticias').each((_, posts) => {
         const $: CheerioStatic = cheerio.load(posts)
-        const date = $('.span3.data-hora .data')
+        const areaDateElement = $('.span3.data-hora .data')
+        const titleElement = $('div.textos p.titulo a')
+        const date = areaDateElement
           .eq(0)
           .text()
           .trim()
         const time = $('.span3.data-hora .hora')
           .text()
           .trim()
-        const type = $('.span3.data-hora .data')
+        const type = areaDateElement
           .eq(1)
           .text()
           .trim()
-        const title = $('div.textos p.titulo a')
+        const title = titleElement
           .text()
           .trim()
-        const link = $('div.textos p.titulo a').attr('href') ?? ''
+        const link = titleElement.attr('href') ?? ''
         const shortDescription = $('div.textos p.resumo')
           .text()
           .trim()
@@ -86,30 +81,6 @@ class NewsCrawler {
   }
 
   async load(): Promise<void> {
-    async function sendNotification({
-      createdAt,
-      link,
-      shortDescription,
-      tags,
-      title,
-      type,
-    }: ArticleDocument): Promise<void> {
-      logger.info('send email')
-      const html = render(getTemplate(TemplatesName.alert), {
-        createdAt: moment(createdAt).format('DD/MM/YYYY HH:mm'),
-        link,
-        shortDescription,
-        tags: tags.map(tag => tag.name).join(', '),
-        title,
-        type,
-      })
-
-      await sendEmail({
-        html,
-        subject: 'Anvisa, nova notificação',
-        to: 'carolinebicouv@gmail.com',
-      })
-    }
     const promiseArticlesToCreate = this.articles.map(
       async (article: IArticle): Promise<ArticleDocument> => {
         const findArticle = await Article.findOne({
@@ -125,7 +96,7 @@ class NewsCrawler {
         logger.info('save new article')
         const newArticle = await Article.create(article)
 
-        await sendNotification(newArticle)
+        await sendEmailAlert(newArticle)
 
         return newArticle
       }
