@@ -4,6 +4,7 @@ import { schedule } from 'node-cron'
 
 import app from './app'
 import NewsCrawler from './app/crawlers/anvisa/NewsCrawler'
+import { sendSimpleText } from './app/services/slack'
 
 const initSentry = (): void => {
   init({

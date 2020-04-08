@@ -3,6 +3,7 @@ import Article, { Article as IArticle, ArticleDocument, Tag } from '../../models
 import logger from '../../../libs/winston'
 import request from 'request'
 import { sendEmailAlert } from '../../services/sendEmailAlert'
+import { sendAlertOf } from '../../services/slack'
 
 class NewsCrawler {
   public $!: CheerioStatic
@@ -97,6 +98,7 @@ class NewsCrawler {
         const newArticle = await Article.create(article)
 
         await sendEmailAlert(newArticle)
+        await sendAlertOf(newArticle)
 
         return newArticle
       }
@@ -106,8 +108,12 @@ class NewsCrawler {
   }
 
   async init(): Promise<void> {
-    logger.info('init extract...')
-    await this.extract()
+    try {
+      logger.info('init extract...')
+      await this.extract()
+    } catch (error) {
+      logger.error('error to extract data from anvisa' + error.message)
+    }
 
     logger.info('init transform...')
     await this.transform()
