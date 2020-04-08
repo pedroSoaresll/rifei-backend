@@ -14,6 +14,8 @@ export function sendSimpleText(text: string): Promise<AxiosResponse> {
 }
 
 export async function sendAlertOf(article: Article): Promise<void> {
+  if (!['production', 'development'].includes(process.env.NODE_ENV)) return
+
   await sendSimpleText(`
 Olá, a Anvisa postou um novo artigo.
 
