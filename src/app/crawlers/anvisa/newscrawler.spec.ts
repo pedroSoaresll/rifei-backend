@@ -50,7 +50,7 @@ describe('News Crawler suite tests', () => {
       expect(!!article.link).toBe(true)
       // shortDescription
       expect(article.shortDescription).toBeDefined()
-      expect(!!article.shortDescription).toBe(true)
+      expect(typeof article.shortDescription).toBe(typeof '')
       // tags
       expect(article.tags).toBeDefined()
       expect(article.tags.length).toBeGreaterThanOrEqual(1)
