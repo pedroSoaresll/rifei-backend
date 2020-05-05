@@ -36,7 +36,6 @@ const schema = new Schema({
     type: String
   },
   shortDescription: {
-    required: true,
     type: String
   },
   tags: {
