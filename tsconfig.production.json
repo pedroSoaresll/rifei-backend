@@ -3,6 +3,17 @@
   "compilerOptions": {
     "sourceMap": true,
     "inlineSources": true,
-    "sourceRoot": "/"
-  }
+    "sourceRoot": "/",
+  },
+  "exclude": [
+    "dangerfile.ts",
+    "dangerfile.lite.ts",
+    "scripts",
+    "node_modules",
+    "source/**/fixtures/*",
+    "source/**/_tests/*",
+    "distribution",
+    "types",
+    "src/**/*.spec.ts"
+  ]
 }

@@ -1,5 +1,9 @@
 import cheerio from 'cheerio'
-import Article, { Article as IArticle, ArticleDocument, Tag } from '../../models/Article'
+import Article, {
+  Article as IArticle,
+  ArticleDocument,
+  Tag,
+} from '../../models/Article'
 import logger from '../../../libs/winston'
 import request from 'request'
 import { sendEmailAlert } from '../../services/sendEmailAlert'
@@ -31,29 +35,17 @@ class NewsCrawler {
   async transform(): Promise<void> {
     const articles: IArticle[] = []
 
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.$('.listagem .row-fluid.lista-noticias').each((_, posts) => {
         const $: CheerioStatic = cheerio.load(posts)
         const areaDateElement = $('.span3.data-hora .data')
         const titleElement = $('div.textos p.titulo a')
-        const date = areaDateElement
-          .eq(0)
-          .text()
-          .trim()
-        const time = $('.span3.data-hora .hora')
-          .text()
-          .trim()
-        const type = areaDateElement
-          .eq(1)
-          .text()
-          .trim()
-        const title = titleElement
-          .text()
-          .trim()
+        const date = areaDateElement.eq(0).text().trim()
+        const time = $('.span3.data-hora .hora').text().trim()
+        const type = areaDateElement.eq(1).text().trim()
+        const title = titleElement.text().trim()
         const link = titleElement.attr('href') ?? ''
-        const shortDescription = $('div.textos p.resumo')
-          .text()
-          .trim()
+        const shortDescription = $('div.textos p.resumo').text().trim()
         // tags
         const tags: Tag[] = []
         $('div.textos div.tags a.tagSearch').each((_, tag) =>
