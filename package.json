@@ -13,7 +13,9 @@
     "dev": "NODE_PATH=./src node_modules/.bin/nodemon -L --exec ts-node src/server.ts",
     "build": "NODE_PATH=./src node_modules/.bin/tsc -p tsconfig.production.json",
     "migrate": "yarn sequelize-cli db:migrate",
-    "migrate:undo": "yarn sequelize-cli db:migrate:undo"
+    "migrate:undo": "yarn sequelize-cli db:migrate:undo",
+    "seed": "yarn sequelize-cli db:seed:all",
+    "seed:undo": "yarn sequelize-cli db:seed:undo:all"
   },
   "dependencies": {
     "@sentry/integrations": "^5.15.5",

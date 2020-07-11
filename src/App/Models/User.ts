@@ -6,7 +6,7 @@ interface UserAttributes {
   name: string;
   photo: string;
   email: string;
-  phone: number;
+  phone: string;
   googleId: string;
 }
 
