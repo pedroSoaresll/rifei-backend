@@ -4,4 +4,3 @@ error.log
 info.log
 .env
 src/emails/html/**
-src/**/*.js
