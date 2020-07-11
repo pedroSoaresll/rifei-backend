@@ -11,3 +11,14 @@ services:
       MONGO_INITDB_ROOT_USERNAME: pedro-admin
       MONGO_INITDB_ROOT_PASSWORD: docker
     network_mode: host
+
+  mysql:
+    image: mysql:5.7
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_USER: pedro
+      MYSQL_PASSWORD: docker
+      MYSQL_DATABASE: rifei
+    network_mode: host
