@@ -1,0 +1,23 @@
+{
+  "development": {
+    "username": "pedro",
+    "password": "docker",
+    "database": "rifei",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "test": {
+    "username": "pedro",
+    "password": "docker",
+    "database": "rifei",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  },
+  "production": {
+    "username": "pedro",
+    "password": "docker",
+    "database": "rifei",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
+  }
+}

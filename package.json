@@ -11,7 +11,9 @@
     "email:sync": "yarn email:compile && yarn email:run-sync",
     "start": "NODE_PATH=./dist concurrently 'yarn email:sync' 'node ./dist/server.js'",
     "dev": "NODE_PATH=./src node_modules/.bin/nodemon -L --exec ts-node src/server.ts",
-    "build": "NODE_PATH=./src node_modules/.bin/tsc -p tsconfig.production.json"
+    "build": "NODE_PATH=./src node_modules/.bin/tsc -p tsconfig.production.json",
+    "migrate": "yarn sequelize-cli db:migrate",
+    "migrate:undo": "yarn sequelize-cli db:migrate:undo"
   },
   "dependencies": {
     "@sentry/integrations": "^5.15.5",
@@ -70,6 +72,7 @@
     "nodemon": "^2.0.3",
     "prettier": "^2.0.5",
     "prettier-eslint": "^9.0.1",
+    "sequelize-cli": "^6.2.0",
     "sucrase": "3.13.0",
     "ts-node": "^8.10.1",
     "tslint": "^6.1.2"

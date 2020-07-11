@@ -6,6 +6,8 @@ import { RewriteFrames } from '@sentry/integrations'
 import app from './app'
 
 const initSentry = (): void => {
+  if (process.env.NODE_ENV === 'development') return
+
   init({
     dsn: process.env.SENTRY_DSN,
     release: `rifei-backend@${process.env.npm_package_version}`,

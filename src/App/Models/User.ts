@@ -4,6 +4,10 @@ import sequelizeInstance from 'Databases/mysql'
 interface UserAttributes {
   id: string;
   name: string;
+  photo: string;
+  email: string;
+  phone: number;
+  googleId: string;
 }
 
 type UserCreationAttributes = Optional<UserAttributes, 'id'>
@@ -16,8 +20,21 @@ const UserModel = sequelizeInstance.define<UserInstance>('User', {
     type: DataTypes.UUIDV4
   },
   name: {
-    type: DataTypes.STRING
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  photo: DataTypes.STRING,
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  phone: DataTypes.STRING,
+  googleId: {
+    type: DataTypes.STRING,
+    allowNull: false
   }
+}, {
+  tableName: 'users'
 })
 
 export default UserModel
