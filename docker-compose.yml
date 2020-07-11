@@ -19,6 +19,7 @@ services:
       - 3306:3306
     environment:
       MYSQL_USER: pedro
+      MYSQL_ROOT_PASSWORD: admin
       MYSQL_PASSWORD: docker
       MYSQL_DATABASE: rifei
     network_mode: host

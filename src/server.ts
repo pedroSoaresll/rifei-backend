@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import { init } from '@sentry/node'
 import { RewriteFrames } from '@sentry/integrations'
 

@@ -4,8 +4,6 @@ import cors from 'cors'
 import logger from './Libs/winston'
 import routes from './routes'
 
-require('dotenv/config')
-
 class App {
   public express: express.Application
 
@@ -27,7 +25,7 @@ class App {
   }
 
   private database(): void {
-    logger.info('init database')
+    //
   }
 
   private routes(): void {
