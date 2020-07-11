@@ -1,13 +1,13 @@
 {
   "name": "farma-alerts-backend",
-  "version": "1.1.0",
+  "version": "0.1.0",
   "main": "server.js",
   "author": "Pedro Oliveira <pedrodepaivasoaresll@gmail.com>",
   "license": "MIT",
   "scripts": {
     "test": "./node_modules/.bin/jest",
-    "email:compile": "./node_modules/.bin/tsc ./src/tools/template-builder.ts",
-    "email:run-sync": "node ./src/tools/template-builder.js",
+    "email:compile": "./node_modules/.bin/tsc ./src/Tools/template-builder.ts",
+    "email:run-sync": "node ./src/Tools/template-builder.js",
     "email:sync": "yarn email:compile && yarn email:run-sync",
     "start": "concurrently 'yarn email:sync' 'node ./dist/server.js'",
     "dev": "node_modules/.bin/nodemon -L --exec ts-node src/server.ts",

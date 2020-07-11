@@ -1,5 +1,5 @@
 import MAILGUN from 'mailgun-js'
-import mailgunConfig from '../config/mailgun'
+import mailgunConfig from '../Config/mailgun'
 
 interface HeaderMailgun {
   to: string;
