@@ -1,9 +1,15 @@
 import { Request, Response } from 'express'
-import User from 'App/Models/User'
+import UserParticipant from 'App/Models/UserParticipant'
+import UserModel from 'App/Models/User'
 
 class UsersController {
   async index(_: Request, res: Response): Promise<void> {
-    const user = await User.findAll()
+    const user = await UserParticipant.findAll({
+      include: {
+        model: UserModel,
+        as: 'user'
+      }
+    })
 
     res.json({
       message: 'user controller list',

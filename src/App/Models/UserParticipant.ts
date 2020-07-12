@@ -33,7 +33,12 @@ const UserParticipantModel = sequelizeInstance.define<UserParticipantInstance>('
     }
   }
 }, {
-  tableName: 'users_participant'
+  tableName: 'users_participant',
+  timestamps: false,
+})
+
+UserParticipantModel.belongsTo(UserModel, {
+  as: 'user'
 })
 
 export default UserParticipantModel

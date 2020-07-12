@@ -28,7 +28,12 @@ const UserOwnerModel = sequelizeInstance.define<UserOwnerInstance>('UserOwner', 
   document: DataTypes.STRING,
   documentPhotoProof: DataTypes.STRING
 }, {
-  tableName: 'users_owner'
+  tableName: 'users_owner',
+  timestamps: false,
+})
+
+UserOwnerModel.belongsTo(UserModel, {
+  as: 'user',
 })
 
 export default UserOwnerModel
