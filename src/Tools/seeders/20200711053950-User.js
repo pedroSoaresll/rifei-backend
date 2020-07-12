@@ -22,6 +22,16 @@ module.exports = {
         googleId: 'google-key',
         createdAt: '2020-06-20T23:30:25',
         updatedAt: '2020-06-20T23:30:25'
+      },
+      {
+        id: '44292512-d662-4867-aee8-0406ae4c70f8',
+        name: 'Caroline Bicouv',
+        photo: 'photo_here',
+        email: 'carol@email.com',
+        phone: '11293882938',
+        googleId: 'google-key',
+        createdAt: '2020-06-25T23:30:25',
+        updatedAt: '2020-06-25T23:30:25'
       }
     ])
   },
