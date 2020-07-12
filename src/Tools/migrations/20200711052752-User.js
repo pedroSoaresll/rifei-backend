@@ -14,11 +14,20 @@ module.exports = {
         type: Sequelize.UUID,
         primaryKey: true
       },
-      name: Sequelize.STRING,
+      name: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       photo: Sequelize.STRING,
-      email: Sequelize.STRING,
+      email: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       phone: Sequelize.STRING,
-      googleId: Sequelize.STRING,
+      googleId: {
+        type: Sequelize.STRING,
+        allowNull: false
+      },
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
     })

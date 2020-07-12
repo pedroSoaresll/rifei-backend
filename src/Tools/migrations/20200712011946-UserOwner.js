@@ -8,7 +8,7 @@ module.exports = {
      * Example:
      * await queryInterface.createTable('users', { id: Sequelize.INTEGER });
      */
-    await queryInterface.createTable('user_participant', {
+    await queryInterface.createTable('user_owner', {
       id: {
         type: Sequelize.UUID,
         primaryKey: true
@@ -17,23 +17,13 @@ module.exports = {
         type: Sequelize.UUID,
         references: {
           model: {
-            tableName: 'users',
+            tableName: 'users'
           },
           key: 'id'
-        },
-        allowNull: false
+        }
       },
-      addressId: {
-        type: Sequelize.UUID,
-        references: {
-          model: {
-            tableName: 'addresses',
-          },
-          key: 'id'
-        },
-      },
-      createdAt: Sequelize.DATE,
-      updatedAt: Sequelize.DATE,
+      document: Sequelize.STRING,
+      documentPhotoProof: Sequelize.STRING,
     })
   },
 
@@ -44,6 +34,6 @@ module.exports = {
      * Example:
      * await queryInterface.dropTable('users');
      */
-    await queryInterface.dropTable('user_participant')
+    await queryInterface.dropTable('user_owner')
   }
 }
