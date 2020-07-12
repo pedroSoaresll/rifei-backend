@@ -24,6 +24,8 @@ module.exports = {
         endDate: '2020-12-25T07:15:31',
         city: 'Barueri',
         state: 'SP',
+        createdAt: '2020-12-01T12:32:22',
+        updatedAt: '2020-12-01T12:32:22',
       }
     ])
   },
