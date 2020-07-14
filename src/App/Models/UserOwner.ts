@@ -16,7 +16,8 @@ interface UserOwnerInstance extends Model<UserOwnerAttributes, UserOwnerCreation
 const UserOwnerModel = sequelizeInstance.define<UserOwnerInstance>('UserOwner', {
   id: {
     primaryKey: true,
-    type: DataTypes.UUIDV4
+    type: DataTypes.UUIDV4,
+    defaultValue: DataTypes.UUIDV4,
   },
   userId: {
     type: DataTypes.UUIDV4,

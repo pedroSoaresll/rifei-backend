@@ -23,6 +23,7 @@ interface RaffleInstance extends Model<RaffleAttributes, RaffleCreationAttribute
 const RaffleModel = sequelizeInstance.define<RaffleInstance>('Raffle', {
   id: {
     type: DataTypes.UUIDV4,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
   userOwnerId: {

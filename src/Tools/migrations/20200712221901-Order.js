@@ -11,10 +11,12 @@ module.exports = {
     await queryInterface.createTable('orders', {
       id: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
       userParticipantId: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         references: {
           key: 'id',
           model: {

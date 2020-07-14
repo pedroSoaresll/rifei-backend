@@ -11,10 +11,12 @@ module.exports = {
     await queryInterface.createTable('users_owner', {
       id: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
       userId: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         references: {
           model: {
             tableName: 'users'

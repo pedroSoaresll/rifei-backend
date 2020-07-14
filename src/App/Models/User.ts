@@ -10,14 +10,15 @@ interface UserAttributes {
   googleId: string;
 }
 
-type UserCreationAttributes = Optional<UserAttributes, 'id'>
+export type UserCreationAttributes = Optional<UserAttributes, 'id'>
 
-interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
+export interface UserInstance extends Model<UserAttributes, UserCreationAttributes>, UserAttributes {}
 
 const UserModel = sequelizeInstance.define<UserInstance>('User', {
   id: {
     primaryKey: true,
-    type: DataTypes.UUIDV4
+    type: DataTypes.UUIDV4,
+    defaultValue: DataTypes.UUIDV4,
   },
   name: {
     type: DataTypes.STRING,

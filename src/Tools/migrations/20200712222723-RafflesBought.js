@@ -11,10 +11,12 @@ module.exports = {
     await queryInterface.createTable('raffles_bought', {
       id: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
       raffleId: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         references: {
           model: {
@@ -25,6 +27,7 @@ module.exports = {
       },
       orderId: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         allowNull: false,
         references: {
           model: {

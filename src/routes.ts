@@ -1,5 +1,5 @@
 import { Router } from 'express'
-import UsersController from './App/Controllers/UsersController'
+import UsersParticipantController from './App/Controllers/UsersParticipantController'
 import RafflesController from 'App/Controllers/RafflesController'
 
 const routes = Router()
@@ -7,7 +7,7 @@ const routes = Router()
 routes.get('/', async (req, res) => {
   res.json({ message: 'Hello World' })
 })
-routes.get('/users', UsersController.index)
+routes.post('/users', UsersParticipantController.store)
 routes.get('/raffles', RafflesController.index)
 
 export default routes

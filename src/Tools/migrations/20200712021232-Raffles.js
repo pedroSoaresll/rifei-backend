@@ -11,10 +11,12 @@ module.exports = {
     await queryInterface.createTable('raffles', {
       id: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
       userOwnerId: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         references: {
           model: {
             tableName: 'users_owner'

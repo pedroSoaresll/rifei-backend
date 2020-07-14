@@ -1,22 +1,26 @@
-import { Model, DataTypes, Optional } from 'sequelize'
+import { Model, DataTypes, Optional, BelongsTo, Sequelize } from 'sequelize'
 import sequelizeInstance from 'Databases/mysql'
-import UserModel from './User'
+import UserModel, { UserInstance, UserCreationAttributes } from './User'
 import AddressModel from './Address'
 
-interface UserParticipantAttributes {
+export interface UserParticipantAttributes {
   id: string;
-  userId: string;
-  addressId: string;
+  userId?: string;
+  addressId?: string;
+  user?: UserCreationAttributes;
 }
 
-type UserParticipantCreationAttributes = Optional<UserParticipantAttributes, 'id'>
+export type UserParticipantCreationAttributes = Optional<UserParticipantAttributes, 'id'>
 
-interface UserParticipantInstance extends Model<UserParticipantAttributes, UserParticipantCreationAttributes>, UserParticipantAttributes {}
+interface UserParticipantInstance extends Model<UserParticipantAttributes, UserParticipantCreationAttributes>, UserParticipantAttributes {
+  User: BelongsTo<Model<UserParticipantInstance>, Model<UserInstance>>;
+}
 
 const UserParticipantModel = sequelizeInstance.define<UserParticipantInstance>('UserParticipant', {
   id: {
     primaryKey: true,
-    type: DataTypes.UUIDV4
+    type: DataTypes.UUIDV4,
+    defaultValue: DataTypes.UUIDV4,
   },
   userId: {
     type: DataTypes.UUIDV4,

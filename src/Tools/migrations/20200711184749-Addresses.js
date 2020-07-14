@@ -11,6 +11,7 @@ module.exports = {
     await queryInterface.createTable('addresses', {
       id: {
         type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4,
         primaryKey: true
       },
       postalCode: {

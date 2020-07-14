@@ -19,7 +19,8 @@ interface AddressInstance extends Model<AddressAttributes, AddressCreationAttrib
 
 const AddressModel = sequelizeInstance.define<AddressInstance>('Address', {
   id: {
-    type: DataTypes.UUID,
+    type: DataTypes.UUIDV4,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true
   },
   postalCode: {
