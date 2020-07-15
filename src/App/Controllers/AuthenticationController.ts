@@ -9,6 +9,12 @@ interface AuthenticationStore {
   name: string;
 }
 
+export interface AuthenticationPayload {
+  sub: string;
+  name: string;
+  email: string;
+}
+
 class AuthenticationParticipantsController {
   async store(req: Request<never, never, AuthenticationStore>, res: Response) {
     const { googleToken, email, name } = req.body
