@@ -10,6 +10,7 @@ class OrdersController {
     // salvar as rifas na tabela de rifas compradas
 
     return res.status(200).json({
+      // @ts-ignore
       userAuthorizated: req.userParticipant
     })
   }
