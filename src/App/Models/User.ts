@@ -4,9 +4,9 @@ import sequelizeInstance from 'Databases/mysql'
 interface UserAttributes {
   id: string;
   name: string;
-  photo: string;
+  photo?: string;
   email: string;
-  phone: string;
+  phone?: string;
   googleId: string;
 }
 

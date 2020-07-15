@@ -12,9 +12,7 @@ export interface UserParticipantAttributes {
 
 export type UserParticipantCreationAttributes = Optional<UserParticipantAttributes, 'id'>
 
-interface UserParticipantInstance extends Model<UserParticipantAttributes, UserParticipantCreationAttributes>, UserParticipantAttributes {
-  User: BelongsTo<Model<UserParticipantInstance>, Model<UserInstance>>;
-}
+export interface UserParticipantInstance extends Model<UserParticipantAttributes, UserParticipantCreationAttributes>, UserParticipantAttributes {}
 
 const UserParticipantModel = sequelizeInstance.define<UserParticipantInstance>('UserParticipant', {
   id: {
