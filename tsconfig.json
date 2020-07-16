@@ -19,15 +19,10 @@
       "./node_modules/@types",
     ],
     "baseUrl": "./src",
-    "paths": {
-      "express-request-type": [
-        "./typings/express-request.d.ts"
-      ]
-    }
   },
   "include": [
-    "typings",
-    "./src",
+    "src/typings",
+    "src",
     "src/email"
   ],
   "exclude": [
