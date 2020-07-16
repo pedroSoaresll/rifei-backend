@@ -16,7 +16,7 @@ export interface AuthenticationPayload {
 }
 
 class AuthenticationParticipantsController {
-  async store(req: Request<never, never, AuthenticationStore>, res: Response) {
+  async store(req: Request<never, never, AuthenticationStore>, res: Response): Promise<Response<{token: string}>> {
     const { googleToken, email, name } = req.body
 
     let userParticipant: UserParticipantInstance

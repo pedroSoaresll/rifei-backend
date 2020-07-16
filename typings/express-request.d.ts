@@ -1,6 +1,6 @@
 import { UserParticipantInstance } from 'App/Models/UserParticipant'
 
-declare namespace Express {
+declare module 'express' {
   export interface Request {
      userParticipant?: UserParticipantInstance;
   }

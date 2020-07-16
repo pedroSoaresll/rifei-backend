@@ -39,7 +39,6 @@ export async function authenticated(req: Request, res: Response, next: NextFunct
       })
     }
 
-    // @ts-ignore
     req.userParticipant = userParticipant
 
     next()

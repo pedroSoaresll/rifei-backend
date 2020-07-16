@@ -26,6 +26,21 @@ module.exports = {
         state: 'SP',
         createdAt: '2020-12-01T12:32:22',
         updatedAt: '2020-12-01T12:32:22',
+      },
+      {
+        id: '42df7a8c-22e7-4c75-afeb-36433fe7b8fe',
+        userOwnerId: '95a48543-1952-4677-bfac-fd51c68af35c',
+        photo: 'photo_here',
+        name: 'Kit de sombras + Pincel',
+        description: 'Este eh um kit de sombras + pincel',
+        productPrice: 180.30,
+        rafflePrice: 10,
+        code: 'GQ9C200',
+        endDate: '2020-09-12T07:15:31',
+        city: 'Barueri',
+        state: 'SP',
+        createdAt: '2020-12-01T12:32:22',
+        updatedAt: '2020-12-01T12:32:22',
       }
     ])
   },

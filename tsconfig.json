@@ -16,14 +16,19 @@
       "node"
     ],
     "typeRoots": [
-      "node_modules/@types",
-      "./src/express-request.d.ts"
+      "./node_modules/@types",
     ],
-    "baseUrl": "./src"
+    "baseUrl": "./src",
+    "paths": {
+      "express-request-type": [
+        "./typings/express-request.d.ts"
+      ]
+    }
   },
   "include": [
-    "./src/**/*.ts",
-    "src/email/*"
+    "typings",
+    "./src",
+    "src/email"
   ],
   "exclude": [
     "node_modules",

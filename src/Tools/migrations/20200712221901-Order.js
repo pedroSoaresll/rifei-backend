@@ -30,7 +30,9 @@ module.exports = {
         allowNull: false
       },
       paymentCode: Sequelize.STRING,
-      status: Sequelize.STRING
+      status: Sequelize.STRING,
+      createdAt: Sequelize.DATE,
+      updatedAt: Sequelize.DATE
     })
   },
 

@@ -4,6 +4,7 @@
     "sourceMap": true,
     "inlineSources": true,
     "sourceRoot": "/",
+    "removeComments": true
   },
   "exclude": [
     "dangerfile.ts",
