@@ -31,7 +31,7 @@ module.exports = {
     'max-len': [
       'error',
       {
-        code: 80,
+        code: 120,
         tabWidth: 2,
       },
     ],
@@ -43,5 +43,6 @@ module.exports = {
     'jest/prefer-to-have-length': 'warn',
     'jest/valid-expect': 'error',
     '@typescript-eslint/ban-ts-ignore': 'warn',
+    '@typescript-eslint/member-delimiter-style': 'off',
   },
 }
