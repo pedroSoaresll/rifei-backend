@@ -3,8 +3,9 @@ module.exports = {
     es6: true,
     node: true,
     'jest/globals': true,
+    jest: true,
   },
-  extends: ['standard', 'plugin:@typescript-eslint/recommended'],
+  extends: ['standard', 'plugin:@typescript-eslint/recommended', 'prettier'],
   globals: {
     Atomics: 'readonly',
     SharedArrayBuffer: 'readonly',
@@ -14,8 +15,26 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
   },
-  plugins: ['@typescript-eslint', 'jest'],
+  plugins: ['@typescript-eslint', 'jest', 'prettier'],
   rules: {
+    'sort-imports': [
+      'error',
+      {
+        ignoreCase: false,
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+      },
+    ],
+    'prettier/prettier': 'warn',
+    semi: ['warn', 'never'],
+    'max-len': [
+      'error',
+      {
+        code: 80,
+        tabWidth: 2,
+      },
+    ],
     'space-before-function-paren': 'off',
     'comma-dangle': 'off',
     'jest/no-disabled-tests': 'warn',
