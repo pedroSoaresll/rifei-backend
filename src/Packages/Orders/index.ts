@@ -1,8 +1,9 @@
-import OrderModel from 'App/Models/Order'
+import OrderModel, { OrderStatus } from 'App/Models/Order'
 import RaffleBoughtModel from 'App/Models/RaffleBought'
 
 import PagseguroService from 'Services/pagseguro'
 import { OrdersPackageInterface, OrdersPackageProps } from './interfaces'
+import CreditCardPaymentError from 'Errors/CreditCardPaymentError'
 
 export function OrdersPackage({
   pagseguroService = PagseguroService(),
@@ -52,15 +53,22 @@ export function OrdersPackage({
         cardNumber,
       })
 
-      const payment = await pagseguroService.creditCardPayment({
-        ...restPaymentInfo,
-        creditCardToken,
-        reference,
-      })
+      try {
+        const payment = await pagseguroService.creditCardPayment({
+          ...restPaymentInfo,
+          creditCardToken,
+          reference,
+        })
 
-      // save code return in order to reference it
+        console.log('payment log: ', payment)
 
-      console.log('payment log: ', payment)
+        order.paymentCode = payment.transaction.code[0]
+        await order.save()
+      } catch (err) {
+        console.log('error to get payment', err)
+        order.status = OrderStatus.CANCELED
+        await order.save()
+      }
 
       return order
     },

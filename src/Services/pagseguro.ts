@@ -4,6 +4,7 @@ import qs from 'querystring'
 import {
   CreditCardPaymentBody,
   CreditCardPaymentErrorMapped,
+  CreditCardPaymentResponse,
   CreditCardTokenBody,
   CreditCardTokenPayload,
   PagSeguroCreditCardPaymentErrors,
@@ -11,6 +12,7 @@ import {
   PagSeguroSessionsData,
   PaymentInfoPayload,
 } from './interfaces'
+import CreditCardPaymentError from 'Errors/CreditCardPaymentError'
 
 const parser = new xml2js.Parser()
 
@@ -64,9 +66,7 @@ export default function PagSeguroService(): PagSeguroServiceInterface {
       return data.session.id[0]
     },
 
-    async creditCardPayment(
-      paymentInfo: PaymentInfoPayload
-    ): Promise<void | CreditCardPaymentErrorMapped[]> {
+    async creditCardPayment(paymentInfo: PaymentInfoPayload) {
       try {
         const creditCardPayload = mountCreditCardPayload(paymentInfo)
         const result = await pagseguroInstance.post<convertableToString>(
@@ -80,10 +80,11 @@ export default function PagSeguroService(): PagSeguroServiceInterface {
           }
         )
 
-        const data = await parser.parseStringPromise(result.data)
+        const data = (await parser.parseStringPromise(
+          result.data
+        )) as CreditCardPaymentResponse
 
-        console.log(data)
-        return
+        return data
       } catch (err) {
         const error = err as AxiosError
         const data = (await parser.parseStringPromise(
@@ -96,7 +97,7 @@ export default function PagSeguroService(): PagSeguroServiceInterface {
           })
         )
 
-        return errors
+        throw new CreditCardPaymentError(errors)
       }
     },
 

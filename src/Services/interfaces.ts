@@ -4,7 +4,7 @@ export interface PagSeguroServiceInterface {
   sessions(): Promise<string>
   creditCardPayment(
     props: PaymentInfoPayload
-  ): Promise<void | CreditCardPaymentErrorMapped[]>
+  ): Promise<CreditCardPaymentResponse>
   creditCardToken(props: CreditCardTokenPayload): Promise<string>
 }
 
@@ -86,4 +86,70 @@ export interface CreditCardTokenBody
   extends CreditCardTokenPayload,
   ParsedUrlQueryInput {
   sessionId: string
+}
+
+export interface CreditCardPaymentResponse {
+  transaction: {
+    date: string[]
+    code: string[]
+    reference: string[]
+    type: number[]
+    status: number[]
+    lastEventDate: string[]
+    paymentMethod: [
+      {
+        type: number[]
+        code: number[]
+      }
+    ]
+    grossAmount: number[]
+    discountAmount: number[]
+    feeAmount: number[]
+    netAmount: number[]
+    extraAmount: number[]
+    installmentCount: number[]
+    itemCount: number[]
+    items: [
+      {
+        item: [
+          {
+            id: number[]
+            description: string[]
+            quantity: number[]
+            amount: number[]
+          }
+        ]
+      }
+    ]
+    sender: [
+      {
+        name: string[]
+        email: string[]
+        phone: [
+          {
+            areaCode: number[]
+            number: number[]
+          }
+        ]
+        documents: [
+          {
+            document: [
+              {
+                type: string[]
+                value: number[]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+    gatewaySystem: {
+      type: string[]
+      authorizationCode: number[]
+      nsu: number[]
+      tid: number[]
+      establishmentCode: number[]
+      acquirerName: string[]
+    }
+  }
 }
