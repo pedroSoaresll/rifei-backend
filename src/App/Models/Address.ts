@@ -1,59 +1,65 @@
-import { Model, DataTypes, Optional } from 'sequelize'
+import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeInstance from 'Databases/mysql'
 
 interface AddressAttributes {
-  id: string;
-  postalCode: string;
-  name: string;
-  number: string;
-  neighborhood: string;
-  city: string;
-  state: string;
-  country: string;
-  complement: string;
+  id: string
+  postalCode: string
+  name: string
+  number: string
+  neighborhood: string
+  city: string
+  state: string
+  country: string
+  complement: string
 }
 
 type AddressCreationAttributes = Optional<AddressAttributes, 'id'>
 
-interface AddressInstance extends Model<AddressAttributes, AddressCreationAttributes>, AddressAttributes {}
+interface AddressInstance
+  extends Model<AddressAttributes, AddressCreationAttributes>,
+  AddressAttributes { }
 
-const AddressModel = sequelizeInstance.define<AddressInstance>('Address', {
-  id: {
-    type: DataTypes.UUIDV4,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
+const AddressModel = sequelizeInstance.define<AddressInstance>(
+  'Address',
+  {
+    id: {
+      type: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
+    postalCode: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    number: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    neighborhood: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    city: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    country: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    complement: DataTypes.STRING,
   },
-  postalCode: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  name: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  number: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  neighborhood: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  city: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  state: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  country: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  complement: DataTypes.STRING,
-}, {
-  tableName: 'addresses'
-})
+  {
+    tableName: 'addresses',
+  }
+)
 
 export default AddressModel

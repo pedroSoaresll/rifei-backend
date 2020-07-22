@@ -1,13 +1,16 @@
 import axios, { AxiosError } from 'axios'
 import xml2js, { convertableToString } from 'xml2js'
-import FormData from 'form-data'
+import qs from 'querystring'
 import {
+  CreditCardPaymentBody,
   CreditCardPaymentErrorMapped,
-  CreditCardPaymentProps,
+  CreditCardTokenBody,
+  CreditCardTokenPayload,
   PagSeguroCreditCardPaymentErrors,
   PagSeguroServiceInterface,
   PagSeguroSessionsData,
-} from './pagseguro.interfaces'
+  PaymentInfoPayload,
+} from './interfaces'
 
 const parser = new xml2js.Parser()
 
@@ -17,6 +20,35 @@ const token = encodeURIComponent(process.env.PAGSEGURO_TOKEN)
 const pagseguroInstance = axios.create({
   baseURL: process.env.PAGSEGURO_URL,
 })
+
+const uolInstance = axios.create({
+  baseURL: process.env.UOL_URL,
+})
+
+function mountCreditCardPayload(
+  paymentInfo: PaymentInfoPayload
+): CreditCardPaymentBody {
+  return {
+    ...paymentInfo,
+    paymentMode: 'default',
+    paymentMethod: 'creditCard',
+    receiverEmail: 'pedrodepaivasoaresll@gmail.com',
+    currency: 'BRL',
+    notificationURL: 'https://sualoja.com.br/notifica.html',
+    shippingAddressRequired: 'false',
+    installmentQuantity: '1',
+  }
+}
+
+function mountCreeditCardTokenPayload(
+  cardInfo: CreditCardTokenPayload,
+  sessionId: string
+): CreditCardTokenBody {
+  return {
+    ...cardInfo,
+    sessionId,
+  }
+}
 
 export default function PagSeguroService(): PagSeguroServiceInterface {
   return {
@@ -32,19 +64,22 @@ export default function PagSeguroService(): PagSeguroServiceInterface {
       return data.session.id[0]
     },
 
-    async creditCardPayment({
-      body,
-    }: CreditCardPaymentProps): Promise<void | CreditCardPaymentErrorMapped[]> {
-      const formData = new FormData()
-      Object.keys(body).forEach((item) => {
-        formData.append(item, body[item])
-      })
-
+    async creditCardPayment(
+      paymentInfo: PaymentInfoPayload
+    ): Promise<void | CreditCardPaymentErrorMapped[]> {
       try {
+        const creditCardPayload = mountCreditCardPayload(paymentInfo)
         const result = await pagseguroInstance.post<convertableToString>(
           `/v2/transactions?email=${email}&token=${token}`,
-          JSON.stringify(body)
+          qs.stringify(creditCardPayload),
+          {
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+              Accept: '*/*',
+            },
+          }
         )
+
         const data = await parser.parseStringPromise(result.data)
 
         console.log(data)
@@ -63,6 +98,17 @@ export default function PagSeguroService(): PagSeguroServiceInterface {
 
         return errors
       }
+    },
+
+    async creditCardToken(cardInfo) {
+      const sessionId = await PagSeguroService().sessions()
+      const payload = mountCreeditCardTokenPayload(cardInfo, sessionId)
+      const result = await uolInstance.post<{ token: string }>(
+        '/v2/cards',
+        qs.stringify(payload)
+      )
+
+      return result.data.token
     },
   }
 }

@@ -44,5 +44,8 @@ module.exports = {
     'jest/valid-expect': 'error',
     '@typescript-eslint/ban-ts-ignore': 'warn',
     '@typescript-eslint/member-delimiter-style': 'off',
+    '@typescript-eslint/no-empty-interface': 'off',
+    '@typescript-eslint/explicit-function-return-type': 'off',
+    'no-empty-pattern': 'off',
   },
 }

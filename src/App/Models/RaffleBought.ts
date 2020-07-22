@@ -1,56 +1,65 @@
-import { Model, DataTypes, Optional } from 'sequelize'
+import { DataTypes, Model, Optional } from 'sequelize'
 import sequelizeInstance from 'Databases/mysql'
 import RaffleModel from './Raffle'
 import OrderModel from './Order'
 
 export interface RaffleBoughtAttributes {
-  id: string;
-  raffleId: string;
-  orderId?: string;
-  raffleNumber: number;
-  isRaffled: boolean;
+  id: string
+  raffleId: string
+  orderId?: string
+  raffleNumber: number
+  isRaffled: boolean
 }
 
-export type RaffleBoughtCreationAttributes = Optional<RaffleBoughtAttributes, 'id'>
+export type RaffleBoughtCreationAttributes = Optional<
+  RaffleBoughtAttributes,
+  'id'
+>
 
-interface RaffleBoughtInstance extends Model<RaffleBoughtAttributes, RaffleBoughtCreationAttributes>, RaffleBoughtAttributes {}
+export interface RaffleBoughtInstance
+  extends Model<RaffleBoughtAttributes, RaffleBoughtCreationAttributes>,
+  RaffleBoughtAttributes { }
 
-const RaffleBoughtModel = sequelizeInstance.define<RaffleBoughtInstance>('RaffleBought', {
-  id: {
-    type: DataTypes.UUIDV4,
-    defaultValue: DataTypes.UUIDV4,
-    primaryKey: true
-  },
-  raffleId: {
-    type: DataTypes.UUIDV4,
-    references: {
-      model: RaffleModel,
-      key: 'id'
+const RaffleBoughtModel = sequelizeInstance.define<RaffleBoughtInstance>(
+  'RaffleBought',
+  {
+    id: {
+      type: DataTypes.UUIDV4,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
     },
-    allowNull: false
-  },
-  orderId: {
-    type: DataTypes.UUIDV4,
-    references: {
-      model: OrderModel,
-      key: 'id'
+    raffleId: {
+      type: DataTypes.UUIDV4,
+      references: {
+        model: RaffleModel,
+        key: 'id',
+      },
+      allowNull: false,
     },
-    allowNull: false
+    orderId: {
+      type: DataTypes.UUIDV4,
+      references: {
+        model: OrderModel,
+        key: 'id',
+      },
+      allowNull: false,
+    },
+    raffleNumber: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    isRaffled: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
-  raffleNumber: {
-    type: DataTypes.STRING,
-    allowNull: false
-  },
-  isRaffled: {
-    type: DataTypes.BOOLEAN,
-    defaultValue: false
+  {
+    tableName: 'raffles_bought',
   }
-}, {
-  tableName: 'raffles_bought'
-})
+)
 
 RaffleBoughtModel.belongsTo(RaffleModel, {
-  as: 'raffle'
+  as: 'raffle',
 })
 
 // RaffleBoughtModel.belongsTo(OrderModel, {

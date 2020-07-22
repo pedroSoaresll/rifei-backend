@@ -7,8 +7,8 @@ class RafflesController {
     const raffles = await RaffleModel.findAll({
       include: {
         model: UserOwnerModel,
-        as: 'userOwner'
-      }
+        as: 'userOwner',
+      },
     })
 
     res.json({
