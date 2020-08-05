@@ -3,7 +3,6 @@ import RaffleBoughtModel from 'App/Models/RaffleBought'
 
 import PagseguroService from 'Services/pagseguro'
 import { OrdersPackageInterface, OrdersPackageProps } from './interfaces'
-import CreditCardPaymentError from 'Errors/CreditCardPaymentError'
 
 export function OrdersPackage({
   pagseguroService = PagseguroService(),
@@ -11,15 +10,11 @@ export function OrdersPackage({
   return {
     async create({
       userParticipant,
-      rafflesInstance,
+      raffleInstance,
       paymentInfo,
       rafflesBought,
     }) {
-      const totalAmount = rafflesInstance.reduce(
-        (previousValue, currentValue) =>
-          previousValue + currentValue.rafflePrice,
-        0
-      )
+      const totalAmount = raffleInstance.rafflePrice * paymentInfo.itemQuantity1
 
       const order = await OrderModel.create(
         {
@@ -58,6 +53,12 @@ export function OrdersPackage({
           ...restPaymentInfo,
           creditCardToken,
           reference,
+          itemId1: raffleInstance.id,
+          itemDescription1: raffleInstance.description,
+          itemAmount1: (raffleInstance.rafflePrice.toFixed(
+            2
+          ) as unknown) as number,
+          installmentValue: totalAmount.toFixed(2),
         })
 
         console.log('payment log: ', payment)

@@ -12,7 +12,7 @@ export interface RafflesBoughtPayload {
 
 export interface OrdersPackageCreateParams {
   userParticipant: UserParticipantInstance
-  rafflesInstance: RaffleInstance[]
+  raffleInstance: RaffleInstance
   rafflesBought: RafflesBoughtPayload[]
   paymentInfo: UserPaymentInfoPayload
 }

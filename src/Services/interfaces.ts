@@ -36,8 +36,8 @@ export interface PaymentInfoPayload {
   senderHash: string
   itemId1: string
   itemDescription1: string
-  itemAmount1: string
-  itemQuantity1: string
+  itemAmount1: number
+  itemQuantity1: number
   senderName: string
   senderCPF: string
   senderAreaCode: string

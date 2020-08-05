@@ -4,10 +4,7 @@ import { OrdersPackage } from 'Packages/Orders'
 
 export interface UserPaymentInfoPayload {
   senderHash: string
-  itemId1: string
-  itemDescription1: string
-  itemAmount1: string
-  itemQuantity1: string
+  itemQuantity1: number
   senderName: string
   senderCPF: string
   senderAreaCode: string
@@ -34,41 +31,40 @@ export interface UserPaymentInfoPayload {
 }
 
 export interface OrderStoreBody {
+  raffleId: string
   raffles: [
     {
-      id: string
       code: number
     }
   ]
   paymentInfo: UserPaymentInfoPayload
 }
+
+const ordersPackage = OrdersPackage()
+
 class OrdersController {
   async store(req: Request<never, never, OrderStoreBody>, res: Response) {
     const { userParticipant } = req
-    const { raffles, paymentInfo } = req.body
+    const { raffles, paymentInfo, raffleId } = req.body
 
-    const rafflesPromise = raffles.map((raffle) => {
-      return RaffleModel.findOne({ where: { id: raffle.id } })
+    const raffleInstance = await RaffleModel.findOne({
+      where: { id: raffleId },
     })
-    const rafflesInstance = await Promise.all(rafflesPromise)
 
     const rafflesBought = raffles.map((raffle) => ({
-      raffleId: raffle.id,
+      raffleId,
       raffleNumber: raffle.code,
       isRaffled: false,
     }))
 
-    const ordersPackage = OrdersPackage()
     const order = await ordersPackage.create({
       userParticipant,
       rafflesBought,
-      rafflesInstance,
+      raffleInstance: raffleInstance,
       paymentInfo,
     })
 
-    return res.status(200).json({
-      order,
-    })
+    return res.status(200).json(order)
   }
 }
 
