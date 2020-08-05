@@ -65,7 +65,10 @@ class AuthenticationParticipantsController {
         name: userParticipant.user.name,
         email: userParticipant.user.email,
       },
-      process.env.SECRET_KEY
+      process.env.SECRET_KEY,
+      {
+        expiresIn: '2h',
+      }
     )
 
     return res.json({
