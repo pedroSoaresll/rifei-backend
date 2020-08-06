@@ -2,6 +2,7 @@ import { Router } from 'express'
 import UsersParticipantController from './App/Controllers/UsersParticipantController'
 import RafflesController from 'App/Controllers/RafflesController'
 import { authenticateUser } from 'App/Validations/Authentication'
+import { createOrderValidation } from 'App/Validations/Order'
 import AuthenticationParticipantsController from 'App/Controllers/AuthenticationController'
 import OrdersController from 'App/Controllers/OrdersController'
 import { authenticated } from 'App/Middlewares/authenticated'
@@ -22,6 +23,11 @@ routes.post('/users', UsersParticipantController.store)
 
 routes.get('/raffles', RafflesController.index)
 
-routes.post('/orders', authenticated, OrdersController.store)
+routes.post(
+  '/orders',
+  authenticated,
+  createOrderValidation,
+  OrdersController.store
+)
 
 export default routes
